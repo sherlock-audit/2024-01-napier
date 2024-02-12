@@ -1,0 +1,58 @@
+# your can use the init-foundry task to create a foundry.toml file.
+# The file will be created using the proper values to make Foundry work well with your Hardhat project.
+
+[profile.default]
+solc = '0.8.19'
+src = 'src'
+out = 'out'
+libs = ['lib', 'node_modules']
+test = 'test'
+remappings = [
+    'forge-std=lib/forge-std/src/',
+    "@openzeppelin/contracts@4.9.3/=lib/openzeppelin-contracts/contracts/",
+    "hardhat-deployer/=lib/hardhat-deployer/src/",
+]
+optimizer_runs = 2_000
+# do not include the metadata hash, since this is machine dependent
+# and we want all generated code to be deterministic
+bytecode_hash = 'none'
+# extra_output = ['storageLayout']
+
+[doc]
+out = 'docs/foundry-docs/'
+
+[fuzz]
+runs = 1000
+max_test_rejects = 1_000_000
+
+[invariant]
+fail_on_revert = true
+
+[profile.optimized]
+via_ir = true
+out = 'optimized-out'
+bytecode_hash = 'none'
+
+test = 'src'
+script = 'src'
+# extra_output = ['evm.assembly', 'irOptimized']
+
+[profile.deep_fuzz]
+[profile.deep_fuzz.fuzz]
+runs = 10_000
+max_test_rejects = 1_000_000
+
+[rpc_endpoints]
+# This section lives outside of profiles and defines a table of RPC endpoints, where the key specifies the RPC endpoints's name and the value is the RPC endpoint itself.
+# The value can either be a valid RPC endpoint or a reference to an environment variable (wrapped with in ${}).
+# These RPC endpoints can be used in tests and Solidity scripts 
+mainnet = "${ETH_RPC_URL}"
+# sepolia = "https://rpc.sepolia.org"
+sepolia = "${SEPOLIA_RPC_URL}"
+dev_net = "${TENDERLY_DEV_NET_RPC_URL}"
+
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}" }
+sepolia = { key = "${ETHERSCAN_API_KEY}" }
+
+# See more config options https://github.com/gakonst/foundry/tree/master/config

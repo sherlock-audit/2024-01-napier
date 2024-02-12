@@ -1,0 +1,32 @@
+# Protocol Invariants
+
+## Tranche
+
+| Property | Description                                                                                                                                                             | Category | Tested |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------ |
+| T-01     | The Target balance in the Tranche is greater than or equal to the sum of the claimable yield and the redeemable amount of Target for individual users                   |          | ✅     |
+| T-02     | The sum of the claimed yield and the redeemed Target through the early redemption of PT and YT is equal to the amount of Target initially issued when issuing PT and YT |          |        |
+
+## Yield Token
+
+| Property | Description                                                                                                                                                                                            | Category | Tested |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------ |
+| YT-01    | The total supply of the Principal Token is equal to the total supply of the Yield Token if the maturity is not passed                                                                                  |          | ✅     |
+| YT-02    | When user's PT and YT balances remain unchanged, the sum of total unclaimed yield and claimed yield is equal to the total claimable yield regardless of when and how many times the user claimed yield |          |        |
+
+# Function-Level Properties
+
+## Tranche
+
+| Property | Description                                                                                   | Category | Tested |
+| -------- | --------------------------------------------------------------------------------------------- | -------- | ------ |
+| T_FL_01  | No yield should be claimable immediately after issuing                                        |          | ✅     |
+| T_FL_02  | No yield should be claimable immediately after collecting                                     |          | ✅     |
+| T_FL_03  | No yield should be claimable immediately after early redemption if the maturity is not passed |          | ✅     |
+
+## Yield Token
+
+| Property | Description                                                                                                           | Category | Tested |
+| -------- | --------------------------------------------------------------------------------------------------------------------- | -------- | ------ |
+| Y_FL_01  | Transferring YT shouldn't change `from`'s claimable yield before and after the transfer if the maturity is not passed |          | ✅     |
+| Y_FL_02  | Transferring YT shouldn't change `to`'s claimable yield before and after the transfer if the maturity is not passed   |          | ✅     |

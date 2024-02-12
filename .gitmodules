@@ -1,0 +1,9 @@
+[submodule "napier-v1/lib/openzeppelin-contracts"]
+	path = napier-v1/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "napier-v1/lib/forge-std"]
+	path = napier-v1/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "napier-v1/lib/hardhat-deployer"]
+	path = napier-v1/lib/hardhat-deployer
+	url = https://github.com/napierfi/hardhat-deployer
