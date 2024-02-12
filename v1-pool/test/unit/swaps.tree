@@ -1,0 +1,101 @@
+// Router
+swapPtForUnderlying
+├── when deadline has passed
+│   └── revert
+├── when pt doesn't exist
+│   └── revert
+├── perform the swap
+    ├── when the amount of PT tokens is 0
+    │  └── revert
+    ├── when underlying out is less than the minimum specified amount
+    │   └── revert
+    ├── pool should update the reserves
+    └── it should transfer the amount of underlying tokens to recipient
+
+swapUnderlyingForPt
+├── when pt doesn't exist
+│   └── revert
+├── perform the swap
+    ├── when underlying in is greater than the maximum specified amount
+    │   └── revert
+    ├── it should transfer the exact amount of PT to recipient
+    ├── when callback is invoked by non target pool contract
+        │    └── revert
+        ├── it should transfer the requested amount of underlying tokens to pool
+        └── pool should update the reserves
+
+swapExactUnderlyingForPT
+├── when pt doesn't exist
+│   └── revert
+├── approximate the amount of pt to swap
+    ├── when computed pt out is less than the minimum specified amount
+    │   └── revert
+    ├── it should transfer the exact amount of underlying
+    ├── perform the swapUnderlyingForPt swap
+    ├── when swap fails
+    │    └── revert
+    ├── it should transfer the requested amount of underlying tokens to pool
+    └── pool should update the reserves
+    └── it should transfer amount of PT to recipient
+
+// Pool
+swapPtForUnderlying
+├── when maturity has passed
+│  └── revert
+├── when maturity has not passed
+    ├── when pt doesn't exist
+    │   └── revert
+    ├── when calculate trade result fails
+    │   └── revert
+    ├── when transfer computed underlying to recipient fails
+    │   └── revert
+    ├── when callback data is not empty
+        ├── when callback is invoked by non authorized contract
+        │    └── revert
+        └── perform the callback
+            ├── when callback fails
+            │    └── revert
+            ├── when pool doesn't receive enough pt 
+            │    └── revert
+            ├── when add liquidity to base pool
+                ├── when the received base lp token is less than it should be
+                │    └── revert
+                └── it should return underlying amount
+
+swapUnderlyingForPt
+├── when maturity has passed
+│  └── revert
+├── when maturity has not passed
+    ├── when pt doesn't exist
+    │   └── revert
+    ├── when the amount of PT tokens is 0
+    │  └── revert
+    ├── when base lp token out is greater than pool reserve
+    │   └── revert
+    ├── when calculate trade result fails
+    │   └── revert
+    ├── when remove liquidity from base pool fails
+    │   └── revert
+    ├── when transfer exact amount of pt to recipient fails
+    │   └── revert
+    ├── when callback data is not empty
+        │  └── revert
+        ├── when callback is invoked by non authorized contract
+        │    └── revert
+        └── when the received underlying is less than it should be
+            │    └── revert
+            └── it should return underlying amount
+
+executeTrade
+├── when maturity has passed
+│  └── revert
+├── when rateScaler is negative
+│  └── revert
+├── either base lpt reserve or underlying reserve is 0
+│  └── revert
+├── when new proportion := prt_trade = (baseLptReserve + ptDelta).div(baseLptReserve + underlyingReserve) is greater than max proportion
+│  └── revert
+├── exchange rate with no fee is less than 1 (1 base lp tokens must be worth less than 1 underlying token)
+│  └── revert
+├── it should return new last ln implied rate
+├── it should return post-trade state

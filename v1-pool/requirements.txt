@@ -1,0 +1,7 @@
+asttokens==2.2.1
+importlib-metadata==6.8.0
+pycryptodome==3.18.0
+semantic-version==2.10.0
+six==1.16.0
+vyper==0.3.9
+zipp==3.16.2

@@ -1,0 +1,72 @@
+{
+  "name": "v1-pool",
+  "version": "0.0.1",
+  "description": "Napier v1 Pool",
+  "scripts": {
+    "build": "hardhat compile",
+    "test": "forge test -vvv",
+    "doc": "forge doc",
+    "type": "hardhat typechain",
+    "lint:check:sol": "forge fmt --check",
+    "lint:fix:sol": "forge fmt",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/massun-onibakuchi/hardhat-foundry-template/"
+  },
+  "keywords": [],
+  "author": "napier-labs",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/massun-onibakuchi/hardhat-foundry-template/#readme",
+  "devDependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.5",
+    "@nomicfoundation/hardhat-foundry": "^1.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.7",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@nomiclabs/hardhat-etherscan": "^3.1.5",
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "^17.0.24",
+    "chai": "^4.3.7",
+    "dotenv": "^16.0.0",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.14.0",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "2.8.8",
+    "prettier-plugin-solidity": "^1.1.3",
+    "solidity-coverage": "^0.8.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "lint-staged": {
+    "*.sol": "forge fmt"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "2.0.2",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.5",
+    "typechain": "^8.1.1"
+  },
+  "private": "false",
+  "resolutions": {
+    "async": ">=2.6.4",
+    "cross-fetch": ">=3.1.5",
+    "lodash": ">=4.17.21",
+    "node-fetch": ">=2.6.7",
+    "underscore": ">=1.12.1",
+    "yargs-parser": ">=5.0.1",
+    "yargs-unparser": ">=2.0.0",
+    "minimatch": ">=3.0.5",
+    "flat": ">=5.0.2"
+  }
+}

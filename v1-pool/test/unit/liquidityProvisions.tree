@@ -1,0 +1,107 @@
+// Router
+addLiquidity
+├── when maturity has passed
+│  └── revert
+└── when maturity has not passed
+    ├── when adding liquidity to Base Pool succeeds
+        ├── if minted Lp tokens is less than the requested minimum
+            └── revert
+
+addLiquidityOnePt
+├── when maturity has passed
+│  └── revert
+└── when maturity has not passed
+    ├── if approximation doesn't converge with a certain number of iterations
+        │   └── revert
+        ├── when adding liquidity to Base Pool fails
+        │   └──revert with BasePoolAddLiquidityFailed
+        ├── when adding liquidity to Base Pool succeeds
+            ├── swap some of base lp tokens for underlying
+                └── Same as `addLiquidity`
+
+addLiquidityOneUnderlying
+├── when maturity has passed
+│  └── revert
+└── when maturity has not passed
+    ├── if approximation doesn't converge with a certain number of iterations
+        │   └── revert
+        ├── when adding liquidity to Base Pool fails
+        │   └──revert with BasePoolAddLiquidityFailed
+        ├── when adding liquidity to Base Pool succeeds
+            ├── swap some of base lp tokens for pt
+                └── Same as `addLiquidity`
+
+removeLiquidity
+├── when maturity has passed
+│  └── revert
+├── when maturity has not passed
+    └── when burning shares succeeds
+        ├── it should withdraw tokens proportionally to reserves
+        └── it should transfer them to recipient
+
+removeLiquidityOneUnderlying
+├── when maturity has passed
+│  └── remove liquidity from meta pool
+│      └── remove liquidity from base pool with one PT
+│          └── redeem the transferred PT tokens for underlyings
+│              ├── if it doesn't get amount less than the requested minimum
+│              │    └── revert
+│              └── it should transfer the underlying tokens to recipient
+├── when maturity has not passed
+    └── remove liquidity from meta pool
+        ├── swap all base Lp tokens for underlying
+            └── Same as above
+
+removeLiquidityOnePt
+├── when maturity has passed
+│  └── revert
+├── when maturity has not passed
+    ├── if approximation doesn't converge with a certain number of iterations
+    │   └── revert
+    ├── approximation for computing the amount of base lp tokens to remove doesn't converge
+    │   └── revert
+    ├── swap all underlying tokens for base Lp tokens
+        └── remove liquidity from base pool with one PT
+            └── if it doesn't get amount less than the requested minimum
+                └── revert 
+
+// Pool
+addLiquidity
+├── when maturity has passed
+│  └── revert
+└── when maturity has not passed
+    ├── when both the underlyingIn and baseLpTokenIn are 0
+    │  └── revert
+    ├── if total supply of Lp tokens is 0
+    │   ├── it should transfer Lp tokens to recipient
+    │   └── it should mint sqrt(underlyingIn * baseLpTokenIn) amount of Lp tokens
+    │
+    │
+    └── if the total supply is non zero
+        ├── it should transfer Lp tokens to recipient
+        └── it should mint maximum possible amount of Lp tokens given the amount of tokens being added
+
+addLiquidityUnderlyingAndPts
+├── when maturity has passed
+│  └── revert
+└── when maturity has not passed
+    ├── deposit pts to base pool
+    │    └── if both the underlyingIn and baseLpTokenIn are 0
+    │        └── revert
+    └── same as `addLiquidity`
+
+removeLiquidity
+├── it should burn the requested amount of Lp tokens
+├── it should transfer tokens to recipient
+└── it should withdraw tokens proportionally to reserves
+
+removeLiquidityUnderlyingAndPts
+├── when maturity has passed
+│  └── revert
+├── when maturity has not passed
+    ├── withdraw base Lp token and underlying on meta pool
+        └── withdraw pts on base pool
+            ├── it should burn the requested amount of Lp tokens
+            ├── it should transfer tokens to recipient
+            └── it should withdraw tokens proportionally to reserves
+

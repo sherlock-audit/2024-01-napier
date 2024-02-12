@@ -7,3 +7,21 @@
 [submodule "napier-v1/lib/hardhat-deployer"]
 	path = napier-v1/lib/hardhat-deployer
 	url = https://github.com/napierfi/hardhat-deployer
+[submodule "v1-pool/lib/prb-math"]
+	path = v1-pool/lib/prb-math
+	url = https://github.com/PaulRBerg/prb-math
+[submodule "v1-pool/lib/openzeppelin-contracts"]
+	path = v1-pool/lib/openzeppelin-contracts
+	url = https://github.com/openzeppelin/openzeppelin-contracts
+[submodule "v1-pool/lib/tricrypto-ng"]
+	path = v1-pool/lib/tricrypto-ng
+	url = https://github.com/curvefi/tricrypto-ng
+[submodule "v1-pool/lib/forge-std"]
+	path = v1-pool/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "v1-pool/lib/hardhat-deployer"]
+	path = v1-pool/lib/hardhat-deployer
+	url = https://github.com/napierfi/hardhat-deployer
+[submodule "v1-pool/lib/napier-v1"]
+	path = v1-pool/lib/napier-v1
+	url = https://github.com/napierfi/napier-v1

@@ -1,0 +1,49 @@
+binary search algorithm
+├── when a certain predefined tolerance is not provided
+│   └── guess min and max
+├── when approximatiaon parameter is invalid
+│   └── revert
+├── perform approximation using binary search: f_mid = func(dpt_mid) where dpt_mid = (dpt_min + dpt_max) / 2
+    ├── when computation exceeds the maximum number of iterations
+    │  └── revert
+    ├── when the approximation is within the tolerance
+    │   └── return dpt_mid
+    ├── when f_mid is less than the target
+    │   └── recurse with dpt_min = dpt_mid
+    └── when f_mid is greater than the target
+        └── recurse with dpt_max = dpt_mid
+
+approxSwapExactUnderlyingForBaseLpToken
+approximate base lp token required for a specified exact amount of underlying.
+├── when a certain predefined tolerance is not provided
+│   └── dpt_min = 0 (optional) and dpt_max = max_lp_token (if undefined, guess max)
+├── when approximatiaon parameter is invalid
+│   └── revert
+├── perform approximation using binary search: f_mid = func(dpt_mid) where dpt_mid = (dpt_min + dpt_max) / 2
+    ├── when computation exceeds the maximum number of iterations
+    │  └── revert
+    ├── when the approximatiaon is greater than exact underlying in
+    │   ├── when the approximatiaon is less than the tolerance + exact underlying in
+    │   │   └── return dpt_mid
+    │   └── recurse with dpt_max = dpt_mid
+    ├── when f_mid is less than the target
+        └── recurse with dpt_min = dpt_mid
+
+approxSwapUnderlyingToAddLiquidity
+├── when a certain predefined tolerance is not provided
+│   └── dpt_out_min = 0 (optional) and dpt_out_max = max_lp_token (if undefined, guess max)
+├── when approximatiaon parameter is invalid
+│   └── revert
+├── perform approximation using binary search: f_mid = func(dpt_mid) where dpt_mid = (dpt_out_min + dpt_out_max) / 2
+    ├── when computation exceeds the maximum number of iterations
+    │  └── revert
+    ├── when the approximatiaon is greater than reserve
+    │   └── recurse with dpt_out_max = dpt_mid - 1
+    ├── when the approximatiaon is within the tolerance
+    │   └── return result
+    ├── when f_mid is less than it should be added.
+    │   └── recurse with dpt_out_min = dpt_mid + 1
+    ├── when f_mid is more than it should be added.
+        └── recurse with dpt_out_max = dpt_mid - 1
+
+approxSwapPtToAddLiquidity
