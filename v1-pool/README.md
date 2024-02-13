@@ -11,7 +11,7 @@ The following will need to be installed. Please follow the links and instruction
 
 ### Quickstart
 
-Clone the repository with ```git clone --recursive-submodules
+Clone the repository with git clone --recursive-submodules
 
 1. Install dependencies
 
