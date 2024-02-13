@@ -1,0 +1,112 @@
+name: Continuous Integration
+
+on:
+  # - push
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'assets/**'
+      - 'README.md'
+
+env:
+  ETH_RPC_URL: ${{secrets.ETH_RPC_URL}}
+  ETHERSCAN_API_KEY: ${{secrets.ETHERSCAN_API_KEY}}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+
+      - name: Clone repo
+        uses: actions/checkout@v3
+
+      - name: Install yarn
+        run: npm i -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check contracts are linted
+        run: yarn lint:check
+
+      - name: Add lint summary
+        run: |
+          echo '## Lint results' >> $GITHUB_STEP_SUMMARY
+          echo '✅ Passed' >> $GITHUB_STEP_SUMMARY
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Clone repo with submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Show Foundry config
+        run: forge config
+
+      - name: Run forge tests
+        run: forge test -vvv
+
+      - name: Add test summary
+        run: |
+          echo '## Test results' >> $GITHUB_STEP_SUMMARY
+          echo '✅ Passed' >> $GITHUB_STEP_SUMMARY
+
+  coverage:
+    name: Run Coverage Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Clone repo with submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - run: forge coverage --report=lcov --silent > ./lcov.info
+      - uses: codecov/codecov-action@v3
+        with:
+          files: ./lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+
+  codespell:
+    name: Run codespell
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run codespell
+        uses: codespell-project/actions-codespell@v2.0
+        with:
+          check_filenames: true
+          ignore_words_list: eyt # (eYT) Capital case doesn't work though docs say case insensitive
+          skip: ./.git,yarn.lock,Napier_Yield_Stripping_Math__1_.pdf
+
+  full-pass:
+    needs:
+      - 'tests'
+      - 'lint'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add summary
+        run: |
+          echo '## Summary' >> $GITHUB_STEP_SUMMARY
+          echo '✅ All passed' >> $GITHUB_STEP_SUMMARY

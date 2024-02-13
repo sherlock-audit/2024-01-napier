@@ -1,0 +1,7 @@
+ignore:
+  - src/test
+  - src/utils/FixedPointMathLib.sol
+  - src/utils/DateTime.sol
+  - src/utils/SafeERC20Namer.sol
+  - script
+  - test/

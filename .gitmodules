@@ -22,6 +22,3 @@
 [submodule "v1-pool/lib/hardhat-deployer"]
 	path = v1-pool/lib/hardhat-deployer
 	url = https://github.com/napierfi/hardhat-deployer
-[submodule "v1-pool/lib/napier-v1"]
-	path = v1-pool/lib/napier-v1
-	url = https://github.com/napierfi/napier-v1

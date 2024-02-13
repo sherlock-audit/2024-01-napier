@@ -1,0 +1,31 @@
+node_modules
+.env*
+.DS_Store
+
+coverage
+coverage.json
+lcov.info
+
+# Hardhat files
+artifacts/
+hh-cache/
+typechain-types
+
+# Foundry
+cache
+out
+optimized-out
+broadcast/
+
+# VScode
+.vscode
+!vscode/*.code-snippets
+!.vscode/solidity.json
+*.code-workspace
+*.code-profile
+
+# log
+*.log
+
+# Python
+.venv
